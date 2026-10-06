@@ -1,0 +1,31 @@
+{
+  "name": "starter-custom-markets",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Parimutuel markets with a time multiplier on Solana: Anchor program, Next.js app, Expo app",
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "test:program": "node tests/setup-local-usdc.mjs && anchor test",
+    "test:program:long": "node tests/setup-local-usdc.mjs && LONG_TESTS=1 anchor test",
+    "test:vectors": "cargo test -p cue-solana && npm --workspace apps/web test",
+    "typecheck": "npm --workspace apps/web run typecheck",
+    "build": "npm --workspace apps/web run build",
+    "dev": "npm --workspace apps/web run dev"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.32.1",
+    "@solana/spl-token": "^0.4.14",
+    "@solana/web3.js": "^1.98.4"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.7",
+    "@types/chai": "^4.3.20",
+    "@types/mocha": "^10.0.10",
+    "chai": "^4.5.0",
+    "mocha": "^10.8.2",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^5.7.2"
+  }
+}

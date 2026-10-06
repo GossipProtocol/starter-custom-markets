@@ -1,0 +1,116 @@
+// The database is a cache of the chain plus the words the chain does not
+// store (titles, option labels). Every number here can be rebuilt from the
+// program accounts by `lib/server/reconcile.ts`, and the cron does exactly
+// that. Nothing is ever read from here to decide what the chain should do.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String     @id @default(cuid())
+  privyId       String     @unique
+  walletAddress String?    @unique
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  positions     Position[]
+  intents       TxIntent[]
+}
+
+enum MarketStatus {
+  PENDING // row exists, create tx not yet confirmed on chain
+  OPEN
+  RESOLVED
+  CANCELLED
+}
+
+model Market {
+  id            String       @id @default(cuid())
+  title         String
+  description   String       @default("")
+  // 32-byte PDA seed, hex. The PDA itself is derived, never stored twice.
+  marketIdHex   String       @unique
+  pda           String       @unique
+  status        MarketStatus @default(PENDING)
+  numOptions    Int
+  openAt        DateTime
+  resolveAt     DateTime
+  resolvedAt    DateTime?
+  feeBps        Int
+  winningOption Int?
+  feesWithdrawn Boolean      @default(false)
+  createTx      String?
+  resolveTx     String?
+  lastSyncedAt  DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  outcomes      Outcome[]
+  positions     Position[]
+
+  @@index([status, resolveAt])
+}
+
+model Outcome {
+  id          String  @id @default(cuid())
+  marketId    String
+  index       Int
+  label       String
+  // USDC base units and raw shares, copied from the chain by reconcile.
+  pool        Decimal @default(0) @db.Decimal(20, 0)
+  sharesTotal Decimal @default(0) @db.Decimal(40, 0)
+  market      Market  @relation(fields: [marketId], references: [id], onDelete: Cascade)
+
+  @@unique([marketId, index])
+}
+
+model Position {
+  id        String    @id @default(cuid())
+  marketId  String
+  userId    String?
+  wallet    String
+  pda       String    @unique
+  option    Int
+  stake     Decimal   @default(0) @db.Decimal(20, 0)
+  shares    Decimal   @default(0) @db.Decimal(40, 0)
+  claimed   Boolean   @default(false)
+  closed    Boolean   @default(false)
+  betTx     String?
+  claimTx   String?
+  syncedAt  DateTime  @default(now())
+  createdAt DateTime  @default(now())
+  market    Market    @relation(fields: [marketId], references: [id], onDelete: Cascade)
+  user      User?     @relation(fields: [userId], references: [id])
+
+  @@unique([marketId, wallet])
+  @@index([wallet])
+}
+
+enum IntentKind {
+  CREATE
+  BET
+  CLAIM
+  CANCEL
+}
+
+// A transaction the server built and is waiting to see signed. The signed
+// copy must carry the same message bytes, or it is not the one we built.
+model TxIntent {
+  id        String     @id @default(cuid())
+  kind      IntentKind
+  userId    String
+  marketId  String?
+  message   String     // base64 of the unsigned transaction message
+  payload   Json       // what the tx means, for the row we write after it lands
+  signature String?
+  expiresAt DateTime
+  createdAt DateTime   @default(now())
+  user      User       @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+}

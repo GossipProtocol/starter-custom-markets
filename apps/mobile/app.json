@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Custom Markets",
+    "slug": "starter-custom-markets",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": { "resizeMode": "contain", "backgroundColor": "#f6f5f0" },
+    "ios": { "supportsTablet": false, "bundleIdentifier": "com.example.markets" },
+    "android": {
+      "package": "com.example.markets",
+      "permissions": ["android.permission.INTERNET", "android.permission.ACCESS_NETWORK_STATE"]
+    },
+    "plugins": ["./plugins/withSolanaWalletQueries", "expo-secure-store"],
+    "scheme": "markets"
+  }
+}

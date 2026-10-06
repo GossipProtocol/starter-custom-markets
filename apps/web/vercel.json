@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "app/api/cron/reconcile/route.ts": { "maxDuration": 60 },
+    "app/api/cron/resolve/route.ts": { "maxDuration": 60 }
+  },
+  "crons": [
+    { "path": "/api/cron/reconcile", "schedule": "*/2 * * * *" },
+    { "path": "/api/cron/resolve", "schedule": "*/5 * * * *" }
+  ]
+}
