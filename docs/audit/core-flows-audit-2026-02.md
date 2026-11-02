@@ -1,9 +1,9 @@
-> Provenance. This is one of the two internal audits Winny wrote over the live product in February 2026, reproduced from the product repo with every wallet address, program id, email and client-identifying detail replaced by `[redacted]`. It covers the product's app and its permissionless program variant (`cue_permissionless`, which added creator fees and a close instruction); the program in this starter is the admin-created variant that was submitted for external review. Instruction names, guards and the maths are the same in both, so the findings read across. File paths below are the product's, not this starter's; the README's lessons section maps them.
+> Provenance. This is one of the two internal audits the Consumer Layer team wrote over the live product in February 2026, reproduced from the product repo with every wallet address, program id, email and client-identifying detail replaced by `[redacted]`. It covers the product's app and its permissionless program variant (`cue_permissionless`, which added creator fees and a close instruction); the program in this starter is the admin-created variant that was submitted for external review. Instruction names, guards and the maths are the same in both, so the findings read across. File paths below are the product's, not this starter's; the README's lessons section maps them.
 
 # Core User Flows Audit Report
 
 **Date:** February 3, 2026  
-**Auditor:** Winny
+**Auditor:** Consumer Layer team
 **Scope:** Sign Up, Market Creation, Betting, Fee Claiming, Winnings Claiming
 
 ---

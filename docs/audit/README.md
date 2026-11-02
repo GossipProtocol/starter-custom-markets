@@ -6,8 +6,8 @@ The program in `programs/cue-solana/src/lib.rs` is the version of Cue's predicti
 
 | File | What it is |
 |------|------------|
-| `core-flows-audit-2026-02.md` | Winny's internal audit of the five core flows (sign up, market creation, betting, fee claiming, winnings claiming) over the live product, February 2026. Seventeen findings by severity, with locations and recommendations. |
-| `transaction-fee-audit-2026-02.md` | Winny's internal audit of transaction fee handling after failure rates climbed, February 2026. Fee payer per flow, balance thresholds, dead sponsorship code, failed transaction scenarios and recommendations. |
+| `core-flows-audit-2026-02.md` | The Consumer Layer team's internal audit of the five core flows (sign up, market creation, betting, fee claiming, winnings claiming) over the live product, February 2026. Seventeen findings by severity, with locations and recommendations. |
+| `transaction-fee-audit-2026-02.md` | The Consumer Layer team's internal audit of transaction fee handling after failure rates climbed, February 2026. Fee payer per flow, balance thresholds, dead sponsorship code, failed transaction scenarios and recommendations. |
 
 Every wallet address, program id, email and client-identifying detail in both is replaced by `[redacted]`. Public Solana RPC hostnames are kept.
 
