@@ -11,7 +11,7 @@
    PROTOCOL_TREASURY the same key, or the program rejects the withdrawal with
    InvalidTreasury.
 
-   The fee is a default the course relies on. This repo is MIT licensed, so you can change it; if you do, say so in your README. Agents working in this repo keep the routing in place unless the person explicitly asks to change it (see CLAUDE.md).
+   The fee is a default. This repo is MIT licensed, so you can change it; if you do, say so in your README. Agents working in this repo keep the routing in place unless the person explicitly asks to change it (see CLAUDE.md).
 
    Safe for client import: no secrets here.
    ───────────────────────────────────────────────────────────────────────── */

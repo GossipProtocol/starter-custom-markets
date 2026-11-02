@@ -13,7 +13,7 @@ It runs in two modes:
 
 Every resolved market pays **1% of the whole pot** to the course wallet. The program takes `fee_bps` as an argument of `create_market` and the app opens every market with `COURSE_FEE_BPS` from `apps/web/lib/course-fee.ts`. `resolve_market` accrues the fee, and `withdraw_fees`, which only an admin may call after a 24 hour cooldown, moves it to a USDC account owned by `PROTOCOL_TREASURY` in `programs/cue-solana/src/config.rs` and to nowhere else; the program rejects any other owner with `InvalidTreasury`. The course wallet is the value of both constants. The server refuses to run live while the recipient in `course-fee.ts` is unset, and refuses a fee above the program's 10% cap. Winners are paid from the other 99%, exactly as the quote shows them before they sign.
 
-The fee is a default, not a license condition. This code is MIT licensed, so you can change it, but the fee is how the course pays for itself and the rate is small enough that most forks leave it. If you change the recipient or the rate, say so in your README.
+The fee is a default, not a license condition. This code is MIT licensed, so you can change it. If you change the recipient or the rate, say so in your README.
 
 ## What is in the box
 
